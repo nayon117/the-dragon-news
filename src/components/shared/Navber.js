@@ -15,6 +15,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import Header from "./Header";
 
 const navItems = [
   { route: "Home", pathname: "/" },
@@ -27,6 +28,8 @@ const navItems = [
 
 function Navber() {
   return (
+   <>
+   <Header/>
     <AppBar position="static" className="bg-black">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -66,6 +69,7 @@ function Navber() {
         </Toolbar>
       </Container>
     </AppBar>
+   </>
   );
 }
 export default Navber;
