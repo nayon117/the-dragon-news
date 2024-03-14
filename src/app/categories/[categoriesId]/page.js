@@ -2,7 +2,7 @@
 const DynamicNewsPage = () => {
     return(
         <div>
-             <p> Welcome to page part </p>
+             <p>Dynamic News Page </p>
         </div>
     )
 }

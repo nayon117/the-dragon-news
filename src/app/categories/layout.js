@@ -1,15 +1,16 @@
+import CategoryList from "@/components/ui/CategoryList/CategoryList";
 import { Box, Container, Grid } from "@mui/material";
 
-const CategoriesLayout = () => {
+const CategoriesLayout = ({children}) => {
   return (
     <Box>
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            {/* <LatestNews /> */}
+          <CategoryList/>
           </Grid>
           <Grid item xs={9}>
-            {/* <Sidebar /> */}
+           {children}
           </Grid>
         </Grid>
       </Container>
