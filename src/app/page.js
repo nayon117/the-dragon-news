@@ -1,4 +1,5 @@
 import LatestNews from "@/components/ui/LatestNews/LatestNews";
+import Sidebar from "@/components/ui/Sidebar/Sidebar";
 import { Grid } from "@mui/material";
 
 const Homepage = () => {
@@ -9,7 +10,7 @@ const Homepage = () => {
         <LatestNews/>
         </Grid>
         <Grid item xs={4}>
-         <h1>Sidebar</h1>
+          <Sidebar/>
         </Grid>
       </Grid>
     </>
