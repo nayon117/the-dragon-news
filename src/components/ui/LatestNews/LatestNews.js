@@ -10,135 +10,80 @@ import {
 import topNews from "@/assets/top-news.png";
 import topNews2 from "@/assets/top-news2.png";
 import Image from "next/image";
+import { getAllNews } from "@/utils/getAllNews";
 
-const LatestNews = () => {
+const LatestNews = async () => {
+  const { data } = await getAllNews();
+  console.log(data);
   return (
     <Box>
       <Card className="my-6">
         <CardActionArea>
           <CardMedia>
-            <Image src={topNews} width={800} alt="top news image" />
+            <Image
+              src={data[0].thumbnail_url}
+              width={800}
+              height={500}
+              alt="top news image"
+            />
           </CardMedia>
           <CardContent>
             <p className="bg-red-500 text-white w-28 px-2 py-1 rounded my-5">
-              Technology
+              {data[0].category}
             </p>
             <Typography gutterBottom variant="h5" component="div">
-              Bitcoin climbs as Elon Musk says Tesla will accept it again
+              {data[0].title}
             </Typography>
             <Typography gutterBottom className="my-3">
-              By Hasibul Hasan - March 14,2024
+              By {data[0].author.name} - {data[0].author.published_date}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Bitcoin climbed above $40,000 on Monday, after Elon Musk said
-              Tesla would accept it as payment when miners use more clean
-              energy.
+              {data[0].details.length > 200
+                ? data[0].details.slice(0, 200) + "..."
+                : data[0].details}
             </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
 
-      <Grid className="mt-5" container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
-        <Card className="my-6">
-        <CardActionArea>
-          <CardMedia>
-            <Image src={topNews2} width={800} alt="top news image" />
-          </CardMedia>
-          <CardContent>
-            <p className="bg-red-500 text-white w-28 px-2 py-1 rounded my-5">
-              Technology
-            </p>
-            <Typography gutterBottom >
-              Bitcoin climbs as Elon Musk says Tesla will accept it again
-            </Typography>
-            <Typography gutterBottom className="my-3">
-              By Hasibul Hasan - March 14,2024
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Bitcoin climbed above $40,000 on Monday, after Elon Musk said
-              Tesla would accept it as payment when miners use more clean
-              energy.
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-        </Grid>
-        <Grid item xs={6}>
-        <Card className="my-6">
-        <CardActionArea>
-          <CardMedia>
-            <Image src={topNews2} width={800} alt="top news image" />
-          </CardMedia>
-          <CardContent>
-            <p className="bg-red-500 text-white w-28 px-2 py-1 rounded my-5">
-              Technology
-            </p>
-            <Typography gutterBottom >
-              Bitcoin climbs as Elon Musk says Tesla will accept it again
-            </Typography>
-            <Typography gutterBottom className="my-3">
-              By Hasibul Hasan - March 14,2024
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Bitcoin climbed above $40,000 on Monday, after Elon Musk said
-              Tesla would accept it as payment when miners use more clean
-              energy.
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-        </Grid>
-        <Grid item xs={6}>
-        <Card className="my-6">
-        <CardActionArea>
-          <CardMedia>
-            <Image src={topNews2} width={800} alt="top news image" />
-          </CardMedia>
-          <CardContent>
-            <p className="bg-red-500 text-white w-28 px-2 py-1 rounded my-5">
-              Technology
-            </p>
-            <Typography gutterBottom >
-              Bitcoin climbs as Elon Musk says Tesla will accept it again
-            </Typography>
-            <Typography gutterBottom className="my-3">
-              By Hasibul Hasan - March 14,2024
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Bitcoin climbed above $40,000 on Monday, after Elon Musk said
-              Tesla would accept it as payment when miners use more clean
-              energy.
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-        </Grid>
-        <Grid item xs={6}>
-        <Card className="my-6">
-        <CardActionArea>
-          <CardMedia>
-            <Image src={topNews2} width={800} alt="top news image" />
-          </CardMedia>
-          <CardContent>
-            <p className="bg-red-500 text-white w-28 px-2 py-1 rounded my-5">
-              Technology
-            </p>
-            <Typography gutterBottom >
-              Bitcoin climbs as Elon Musk says Tesla will accept it again
-            </Typography>
-            <Typography gutterBottom className="my-3">
-              By Hasibul Hasan - March 14,2024
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Bitcoin climbed above $40,000 on Monday, after Elon Musk said
-              Tesla would accept it as payment when miners use more clean
-              energy.
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-        </Grid>
+      <Grid
+        className="mt-5"
+        container
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      >
+        {data?.slice(0, 4).map((news) => (
+          <Grid key={news._id} item xs={6}>
+            <Card className="my-6">
+              <CardActionArea>
+                <CardMedia sx={{
+                      "& img": {
+                        width: "100%",
+                        height: "250px",
+                      },
+                    }}>
+                  <Image src={news.thumbnail_url} width={800} height={300} alt="top news image" />
+                </CardMedia>
+                <CardContent>
+                  <p className="bg-red-500 text-white w-28 px-2 py-1 rounded my-5">
+                    {news.category}
+                  </p>
+                  <Typography gutterBottom>
+                    {news.title}
+                  </Typography>
+                  <Typography gutterBottom className="my-3">
+                    By {news.author.name} -  {news.author.published_date}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {news.details.length > 100
+                      ? news.details.slice(0, 100) + "..."
+                      : news.details}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );
